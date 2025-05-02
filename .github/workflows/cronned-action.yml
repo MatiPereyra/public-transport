@@ -2,7 +2,7 @@ name: Sample Ecobici | stations.csv
 
 on:  # events that trigger this workflow: schedule and workflow_dispatch
   schedule:
-    - cron: '14 * * * *'
+    - cron: '14-59/30 * * * *'
   workflow_dispatch:  # when empty, adds a button for manual triggering
 
 permissions:
