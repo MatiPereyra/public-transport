@@ -1,3 +1,6 @@
+import os
+
+
 def set_environment():
     env_path = "../.env"
     try:
