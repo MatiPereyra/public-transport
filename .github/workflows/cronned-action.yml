@@ -1,8 +1,8 @@
-name: Sample Ecobici info
+name: Sample Ecobici | stations.csv
 
 on:  # events that trigger this workflow: schedule and workflow_dispatch
   schedule:
-    - cron: '0 * * * *'
+    - cron: '14 * * * *'
   workflow_dispatch:  # when empty, adds a button for manual triggering
 
 permissions:
@@ -11,7 +11,7 @@ permissions:
 jobs:
   get-ecobici-info:
     name: Get Ecobici information
-    if: github.ref == 'refs/heads/feature/ecobici-new-data'  # to run only on that branch
+    if: github.ref == 'refs/heads/main'  # to run only on that branch
     runs-on: ubuntu-latest
     env:
       TRANSPORT_BA_CLIENT_ID: ${{ secrets.TRANSPORT_BA_CLIENT_ID }}
