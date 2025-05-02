@@ -1,0 +1,28 @@
+name: Sample Ecobici info
+
+on:  # events that trigger this workflow: schedule and workflow_dispatch
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:  # when empty, adds a button for manual triggering
+
+jobs:
+  get-ecobici-info:
+    name: Get Ecobici information
+    if: github.ref == 'refs/heads/main'  # to run only on that branch
+    runs-on: ubuntu-latest
+    env:
+      TRANSPORT_BA_CLIENT_ID: ${{ secrets.TRANSPORT_BA_CLIENT_ID }}
+      TRANSPORT_BA_SECRET: ${{ secrets.TRANSPORT_BA_SECRET }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.3'
+      - run: pip install jupyter
+      - run: jupyter nbconvert --to notebook --execute notebooks/actions.ipynb --output notebooks/actions.ipynb
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add notebooks/actions.ipynb data/stations.csv
+          git commit -m "Append stations.csv rows and update notebook" || true
+          git push
