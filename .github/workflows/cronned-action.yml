@@ -18,7 +18,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12.3'
-      - run: pip install jupyter
+      - run: pip install jupyter requests pandas
       - run: jupyter nbconvert --to notebook --execute notebooks/actions.ipynb --output notebooks/actions.ipynb
       - run: |
           git config user.name "github-actions[bot]"
