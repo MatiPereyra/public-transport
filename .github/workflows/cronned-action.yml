@@ -5,6 +5,9 @@ on:  # events that trigger this workflow: schedule and workflow_dispatch
     - cron: '0 * * * *'
   workflow_dispatch:  # when empty, adds a button for manual triggering
 
+permissions:
+  contents: write
+
 jobs:
   get-ecobici-info:
     name: Get Ecobici information
