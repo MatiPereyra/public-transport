@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: '3.12.3'
       - run: pip install jupyter requests pandas
-      - run: jupyter nbconvert --to notebook --execute notebooks/actions.ipynb --output actions.ipynb
+      - run: PYTHONPATH=.. jupyter nbconvert --to notebook --execute notebooks/actions.ipynb --output actions.ipynb
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
