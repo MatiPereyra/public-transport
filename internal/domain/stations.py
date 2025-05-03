@@ -8,3 +8,7 @@ class Stations(pd.DataFrame):
         else:
             df = pd.DataFrame.from_dict(data)
         super().__init__(df)
+
+    def GetLocationsByGroup(self):
+        df = self[["groups", "lat", "lon"]]
+        # return a MatrixResponse
