@@ -28,8 +28,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/stations.csv
-          git pull --rebase
           git commit -m "Append stations.csv rows" || true
+          git pull --rebase
           git push
 
   update-ecobici-stations-durations:
@@ -51,6 +51,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/journeys.csv
-          git pull --rebase
           git commit -m "Update journeys.csv if changes found" || true
+          git pull --rebase
           git push
