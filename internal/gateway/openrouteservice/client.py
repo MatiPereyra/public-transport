@@ -18,13 +18,24 @@ class OpenRouteServiceClient:
             "Authorization": self.api_key
         }
 
-    def GetDurationMatrix(self, locations: List[Location], profile: str) -> MatrixResponse:
+    def GetDurationMatrix(self, profile: str, locations: List[Location]) -> MatrixResponse:
+        """
+
+        :param profile: values driving-car, cycling-regular
+        :param locations:
+        :return:
+        """
         payload = {
             "locations": [loc.to_list() for loc in locations],
             "metrics": ["duration"]  # could also pass distance
         }
         response = self.client.post(self.base_url.format(profile=profile), json=payload, headers=self.headers)
-        response.raise_for_status()
+        try:
+            response.raise_for_status()
+        except:
+            error = response.json()
+            print(error)
+            response.raise_for_status()
         return MatrixResponse.from_dict(response.json())
 
 

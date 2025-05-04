@@ -4,12 +4,9 @@ from typing import Dict, Any, List
 
 @dataclass
 class Location:
+    name: str
     longitude: float
     latitude: float
-
-    @staticmethod
-    def from_latlon(lat: float, lon: float) -> 'Location':
-        return Location(longitude=lon, latitude=lat)
 
     def to_list(self) -> list:
         return [self.longitude, self.latitude]
@@ -21,12 +18,12 @@ class Location:
 @dataclass
 class LocationPoint:
     location: Location
-    snapped_distance: float
+    snapped_distance: float  # unused, can eventually be null or not be present
 
     @staticmethod
     def from_dict(data: dict) -> 'LocationPoint':
-        loc = Location(longitude=data["location"][0], latitude=data["location"][1])
-        return LocationPoint(location=loc, snapped_distance=data["snapped_distance"])
+        loc = Location(longitude=data["location"][0], latitude=data["location"][1], name=data.get("name"))
+        return LocationPoint(location=loc, snapped_distance=data.get("snapped_distance"))
 
 
 @dataclass
