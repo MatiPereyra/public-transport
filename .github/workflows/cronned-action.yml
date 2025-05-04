@@ -15,6 +15,7 @@ jobs:
     env:
       TRANSPORT_BA_CLIENT_ID: ${{ secrets.TRANSPORT_BA_CLIENT_ID }}
       TRANSPORT_BA_SECRET: ${{ secrets.TRANSPORT_BA_SECRET }}
+      HEIGIT_OPENROUTESERVICE_API_KEY: ${{ secrets.HEIGIT_OPENROUTESERVICE_API_KEY }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v5
