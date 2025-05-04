@@ -9,7 +9,7 @@ class OpenRouteServiceClient:
     def __init__(self):
         self.api_key = os.getenv("HEIGIT_OPENROUTESERVICE_API_KEY")
         if not self.api_key:
-            raise ValueError("ORS_API_KEY environment variable is not set")
+            raise ValueError("HEIGIT_OPENROUTESERVICE_API_KEY environment variable is not set")
         self.base_url = "https://api.openrouteservice.org/v2/matrix/{profile}"
         self.client = requests.Session()
         self.headers = {
