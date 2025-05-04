@@ -11,7 +11,7 @@ class OpenRouteServiceDataFrameAdapter:
     def GetDurationMatrixFromDataFrame(self, profile: str, df: pd.DataFrame) -> pd.DataFrame:
         required_cols = {"station_id", "lon", "lat"}
         if not required_cols.issubset(df.columns):
-            raise ValueError(f"DataFrame must contain columns: {required_cols}")
+            raise ValueError(f"DataFrame must contain columns: {required_cols} but has {df.columns}")
 
         locations = [Location(name=row["station_id"], longitude=row["lon"], latitude=row["lat"]) for _, row in df.iterrows()]
         matrix = self.client.GetDurationMatrix(profile, locations)

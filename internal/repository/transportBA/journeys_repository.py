@@ -6,8 +6,10 @@ from internal.platform.csv.csvRepo import CSVRepo
 
 
 class JourneysRepository:
-    def __init__(self):
+    def __init__(self, filename: str = None):
         self.filename = "../data/journeys.csv"
+        if filename is not None:
+            self.filename = filename
         self.schema = [
             "job_run_at",
             "station_id_from",

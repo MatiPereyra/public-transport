@@ -1,4 +1,4 @@
-name: Sample Ecobici | stations.csv
+name: Ecobici Stations Jobs
 
 on:  # events that trigger this workflow: schedule and workflow_dispatch
   schedule:
@@ -9,9 +9,9 @@ permissions:
   contents: write
 
 jobs:
-  get-ecobici-info:
-    name: Get Ecobici information
-    if: github.ref == 'refs/heads/main'  # to run only on that branch
+  sample-ecobici-stations:
+    name: Sample Ecobici stations
+    #if: github.ref == 'refs/heads/main'  # to run only on that branch
     runs-on: ubuntu-latest
     env:
       TRANSPORT_BA_CLIENT_ID: ${{ secrets.TRANSPORT_BA_CLIENT_ID }}
@@ -22,11 +22,35 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12.3'
-      - run: pip install jupyter requests pandas
-      - run: PYTHONPATH=.. jupyter nbconvert --to notebook --execute notebooks/actions.ipynb --output actions.ipynb
+      - run: pip install requests pandas typer
+      - run: python cli.py sample-ecobici-stations
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/stations.csv
-          git commit -m "Append stations.csv rows and update joruneys.csv if changes found" || true
+          git commit -m "Append stations.csv rows" || true
+          git pull --rebase
+          git push
+
+  update-ecobici-stations-durations:
+    name: Update Ecobici stations durations from OpenRouteService
+    #if: github.ref == 'refs/heads/main'  # to run only on that branch
+    runs-on: ubuntu-latest
+    env:
+      TRANSPORT_BA_CLIENT_ID: ${{ secrets.TRANSPORT_BA_CLIENT_ID }}
+      TRANSPORT_BA_SECRET: ${{ secrets.TRANSPORT_BA_SECRET }}
+      HEIGIT_OPENROUTESERVICE_API_KEY: ${{ secrets.HEIGIT_OPENROUTESERVICE_API_KEY }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.3'
+      - run: pip install requests pandas typer
+      - run: python cli.py update-ecobici-stations-durations
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/journeys.csv
+          git commit -m "Update journeys.csv if changes found" || true
+          git pull --rebase
           git push
