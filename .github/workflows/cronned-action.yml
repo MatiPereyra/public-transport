@@ -27,6 +27,7 @@ jobs:
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase
           git add data/stations.csv
           git commit -m "Append stations.csv rows" || true
           git push
@@ -49,6 +50,7 @@ jobs:
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase
           git add data/journeys.csv
           git commit -m "Update journeys.csv if changes found" || true
           git push
