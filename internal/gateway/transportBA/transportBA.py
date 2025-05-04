@@ -4,7 +4,7 @@ from internal.domain.stations import Stations
 from internal.domain.stations_status import StationsStatus
 
 
-class Client():
+class Client:
     def __init__(self):
         self.get_stations_url = "https://apitransporte.buenosaires.gob.ar/ecobici/gbfs/stationInformation?"
         self.get_stations_status_url = "https://apitransporte.buenosaires.gob.ar/ecobici/gbfs/stationStatus?"

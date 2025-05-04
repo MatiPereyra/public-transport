@@ -5,7 +5,7 @@ import pandas as pd
 from internal.platform.csv.csvRepo import CSVRepo
 
 
-class StationsRepository():
+class StationsRepository:
     def __init__(self):
         self.filename = "../data/stations.csv"
         self.schema = [
@@ -16,7 +16,9 @@ class StationsRepository():
             "num_bikes_disabled",
             "num_docks_available",
             "num_docks_disabled",
-            "status_last_reported_utc"
+            "status_last_reported_utc",
+            "lat",
+            "lon"
         ]
         self.repo = CSVRepo(self.filename, self.schema)
 

@@ -16,6 +16,7 @@ jobs:
     env:
       TRANSPORT_BA_CLIENT_ID: ${{ secrets.TRANSPORT_BA_CLIENT_ID }}
       TRANSPORT_BA_SECRET: ${{ secrets.TRANSPORT_BA_SECRET }}
+      HEIGIT_OPENROUTESERVICE_API_KEY: ${{ secrets.HEIGIT_OPENROUTESERVICE_API_KEY }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v5
@@ -27,5 +28,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/stations.csv
-          git commit -m "Append stations.csv rows and update notebook" || true
+          git commit -m "Append stations.csv rows and update joruneys.csv if changes found" || true
           git push
