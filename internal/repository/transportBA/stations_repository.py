@@ -6,8 +6,10 @@ from internal.platform.csv.csvRepo import CSVRepo
 
 
 class StationsRepository:
-    def __init__(self):
+    def __init__(self, filename: str = None):
         self.filename = "../data/stations.csv"
+        if filename is not None:
+            self.filename = filename
         self.schema = [
             "job_run_at",
             "station_id",
@@ -26,3 +28,9 @@ class StationsRepository:
         new_rows["job_run_at"] = datetime.now(UTC).isoformat()
         new_rows["job_run_at"] = pd.to_datetime(new_rows["job_run_at"])
         self.repo.Append(new_rows)
+
+
+    def GroupByStationIDWithCoordinates(self):
+        df = self.repo.Read()
+        df[["station_id", "lat", "lon"]].groupby("station_id").max()
+        return df

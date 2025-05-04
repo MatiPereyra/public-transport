@@ -28,3 +28,6 @@ class CSVRepo:
         if subset is not None and len(subset) > 0:
             df = new_rows.drop_duplicates(subset=subset, keep="last")
         df.to_csv(self.filename, index=False)
+
+    def Read(self):
+        return pd.read_csv(self.filename)
