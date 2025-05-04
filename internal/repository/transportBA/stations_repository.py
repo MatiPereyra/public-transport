@@ -29,8 +29,6 @@ class StationsRepository:
         new_rows["job_run_at"] = pd.to_datetime(new_rows["job_run_at"])
         self.repo.Append(new_rows)
 
-
     def GroupByStationIDWithCoordinates(self):
         df = self.repo.Read()
-        df[["station_id", "lat", "lon"]].groupby("station_id").max()
-        return df
+        return df[["station_id", "lat", "lon"]].groupby("station_id").max().reset_index()
